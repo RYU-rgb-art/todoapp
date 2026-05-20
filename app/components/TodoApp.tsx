@@ -19,15 +19,15 @@ type StatusFilter = "all" | "active" | "completed";
 
 const PRIORITY_LABELS: Record<Priority, string> = { high: "高", medium: "中", low: "低" };
 const PRIORITY_STYLES: Record<Priority, string> = {
-  high: "text-red-500 bg-red-50 border border-red-200",
-  medium: "text-amber-500 bg-amber-50 border border-amber-200",
-  low: "text-green-500 bg-green-50 border border-green-200",
+  high: "text-red-400 bg-red-900/30 border border-red-800",
+  medium: "text-amber-400 bg-amber-900/30 border border-amber-800",
+  low: "text-emerald-400 bg-emerald-900/30 border border-emerald-800",
 };
 const CATEGORY_LABELS: Record<Category, string> = { work: "仕事", private: "プライベート", other: "その他" };
 const CATEGORY_STYLES: Record<Category, string> = {
-  work: "bg-blue-100 text-blue-600",
-  private: "bg-violet-100 text-violet-600",
-  other: "bg-stone-100 text-stone-500",
+  work: "bg-blue-900/30 text-blue-400",
+  private: "bg-violet-900/30 text-violet-400",
+  other: "bg-slate-700 text-slate-400",
 };
 
 function CircularProgress({ rate }: { rate: number }) {
@@ -38,20 +38,20 @@ function CircularProgress({ rate }: { rate: number }) {
     <div className="flex flex-col items-center gap-1">
       <div className="relative w-20 h-20">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 84 84">
-          <circle cx="42" cy="42" r={r} fill="none" stroke="#dcfce7" strokeWidth="8" />
+          <circle cx="42" cy="42" r={r} fill="none" stroke="#334155" strokeWidth="8" />
           <circle
             cx="42" cy="42" r={r} fill="none"
-            stroke="#16a34a" strokeWidth="8" strokeLinecap="round"
+            stroke="#38bdf8" strokeWidth="8" strokeLinecap="round"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             className="transition-all duration-700 ease-out"
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-bold text-green-700">{Math.round(rate)}%</span>
+          <span className="text-lg font-bold text-sky-300">{Math.round(rate)}%</span>
         </div>
       </div>
-      <span className="text-xs text-green-500">完了率</span>
+      <span className="text-xs text-slate-500">完了率</span>
     </div>
   );
 }
@@ -142,8 +142,8 @@ export default function TodoApp() {
 
         {/* Header */}
         <div className="mb-6 text-center">
-          <h1 className="text-3xl font-light tracking-widest text-green-800 mb-1">TODO</h1>
-          <p className="text-sm text-green-500">
+          <h1 className="text-3xl font-light tracking-widest text-sky-300 mb-1">TODO</h1>
+          <p className="text-sm text-slate-500">
             {totalCount === 0
               ? "タスクを追加しましょう"
               : activeCount > 0
@@ -154,27 +154,27 @@ export default function TodoApp() {
 
         {/* Progress card */}
         {totalCount > 0 && (
-          <div className="mb-5 p-4 bg-white rounded-2xl border border-green-100 shadow-sm flex items-center gap-5">
+          <div className="mb-5 p-4 bg-slate-800 rounded-2xl border border-slate-700 shadow-lg flex items-center gap-5">
             <CircularProgress rate={completionRate} />
             <div className="flex-1 grid grid-cols-3 gap-2 text-center">
-              <div className="p-2 bg-green-50 rounded-xl">
-                <div className="text-2xl font-bold text-green-700">{totalCount}</div>
-                <div className="text-xs text-green-400 mt-0.5">合計</div>
+              <div className="p-2 bg-slate-700 rounded-xl">
+                <div className="text-2xl font-bold text-slate-200">{totalCount}</div>
+                <div className="text-xs text-slate-500 mt-0.5">合計</div>
               </div>
-              <div className="p-2 bg-emerald-50 rounded-xl">
-                <div className="text-2xl font-bold text-emerald-600">{completedCount}</div>
-                <div className="text-xs text-emerald-400 mt-0.5">完了</div>
+              <div className="p-2 bg-slate-700 rounded-xl">
+                <div className="text-2xl font-bold text-sky-400">{completedCount}</div>
+                <div className="text-xs text-slate-500 mt-0.5">完了</div>
               </div>
-              <div className="p-2 bg-lime-50 rounded-xl">
-                <div className="text-2xl font-bold text-lime-600">{activeCount}</div>
-                <div className="text-xs text-lime-400 mt-0.5">残り</div>
+              <div className="p-2 bg-slate-700 rounded-xl">
+                <div className="text-2xl font-bold text-amber-400">{activeCount}</div>
+                <div className="text-xs text-slate-500 mt-0.5">残り</div>
               </div>
             </div>
           </div>
         )}
 
         {/* Input card */}
-        <div className="mb-5 p-4 bg-white rounded-2xl border border-green-100 shadow-sm space-y-3">
+        <div className="mb-5 p-4 bg-slate-800 rounded-2xl border border-slate-700 shadow-lg space-y-3">
           <div className="flex gap-2">
             <input
               ref={inputRef}
@@ -183,23 +183,23 @@ export default function TodoApp() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addTodo()}
               placeholder="新しいタスクを入力..."
-              className="flex-1 px-4 py-2.5 rounded-xl bg-green-50 border border-green-100 text-green-900 placeholder-green-300 text-sm focus:outline-none focus:ring-2 focus:ring-green-300 focus:border-transparent transition"
+              className="flex-1 px-4 py-2.5 rounded-xl bg-slate-700 border border-slate-600 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
             />
             <button
               onClick={addTodo}
               disabled={!input.trim()}
-              className="px-5 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium hover:bg-green-500 active:bg-green-700 disabled:opacity-30 disabled:cursor-not-allowed transition shadow-sm"
+              className="px-5 py-2.5 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-400 active:bg-sky-600 disabled:opacity-30 disabled:cursor-not-allowed transition shadow-sm"
             >
               追加
             </button>
           </div>
           <div className="grid grid-cols-3 gap-2">
             <div>
-              <label className="text-xs text-green-500 font-medium mb-1 block">優先度</label>
+              <label className="text-xs text-slate-400 font-medium mb-1 block">優先度</label>
               <select
                 value={newPriority}
                 onChange={(e) => setNewPriority(e.target.value as Priority)}
-                className="w-full px-2 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-800 text-xs focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                className="w-full px-2 py-1.5 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
               >
                 <option value="high">高</option>
                 <option value="medium">中</option>
@@ -207,11 +207,11 @@ export default function TodoApp() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-green-500 font-medium mb-1 block">カテゴリー</label>
+              <label className="text-xs text-slate-400 font-medium mb-1 block">カテゴリー</label>
               <select
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value as Category)}
-                className="w-full px-2 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-800 text-xs focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                className="w-full px-2 py-1.5 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
               >
                 <option value="work">仕事</option>
                 <option value="private">プライベート</option>
@@ -219,12 +219,12 @@ export default function TodoApp() {
               </select>
             </div>
             <div>
-              <label className="text-xs text-green-500 font-medium mb-1 block">締め切り</label>
+              <label className="text-xs text-slate-400 font-medium mb-1 block">締め切り</label>
               <input
                 type="date"
                 value={newDeadline}
                 onChange={(e) => setNewDeadline(e.target.value)}
-                className="w-full px-2 py-1.5 rounded-lg bg-green-50 border border-green-100 text-green-800 text-xs focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                className="w-full px-2 py-1.5 rounded-lg bg-slate-700 border border-slate-600 text-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
               />
             </div>
           </div>
@@ -232,15 +232,15 @@ export default function TodoApp() {
 
         {/* Filters */}
         <div className="mb-4 space-y-2">
-          <div className="flex gap-1 p-1 bg-green-50 rounded-xl border border-green-100">
+          <div className="flex gap-1 p-1 bg-slate-800 rounded-xl border border-slate-700">
             {(["all", "active", "completed"] as StatusFilter[]).map((f) => (
               <button
                 key={f}
                 onClick={() => setStatusFilter(f)}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition ${
                   statusFilter === f
-                    ? "bg-white text-green-700 shadow-sm"
-                    : "text-green-400 hover:text-green-600"
+                    ? "bg-slate-700 text-sky-400 shadow-sm"
+                    : "text-slate-500 hover:text-slate-300"
                 }`}
               >
                 {f === "all" ? "すべて" : f === "active" ? "未完了" : "完了済み"}
@@ -251,7 +251,7 @@ export default function TodoApp() {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value as "all" | Category)}
-              className="flex-1 px-3 py-1.5 rounded-xl bg-green-50 border border-green-100 text-green-700 text-xs focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+              className="flex-1 px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
             >
               <option value="all">全カテゴリー</option>
               <option value="work">仕事</option>
@@ -261,7 +261,7 @@ export default function TodoApp() {
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value as "all" | Priority)}
-              className="flex-1 px-3 py-1.5 rounded-xl bg-green-50 border border-green-100 text-green-700 text-xs focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+              className="flex-1 px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
             >
               <option value="all">全優先度</option>
               <option value="high">優先度：高</option>
@@ -274,13 +274,13 @@ export default function TodoApp() {
         {/* Task list */}
         <div className="space-y-2">
           {filteredTodos.length === 0 ? (
-            <div className="text-center py-12 text-green-200 text-sm">タスクがありません</div>
+            <div className="text-center py-12 text-slate-600 text-sm">タスクがありません</div>
           ) : (
             filteredTodos.map((todo) => (
               <div
                 key={todo.id}
-                className={`group flex items-start gap-3 px-4 py-3.5 bg-white rounded-xl border border-green-100 shadow-sm transition-opacity ${
-                  todo.completed ? "opacity-55" : "opacity-100"
+                className={`group flex items-start gap-3 px-4 py-3.5 bg-slate-800 rounded-xl border border-slate-700 shadow-sm transition-opacity ${
+                  todo.completed ? "opacity-40" : "opacity-100"
                 } ${removingIds.has(todo.id) ? "task-exit" : ""} ${
                   addingIds.has(todo.id) ? "task-enter" : ""
                 } ${completingIds.has(todo.id) ? "task-complete" : ""}`}
@@ -290,10 +290,10 @@ export default function TodoApp() {
                   onClick={() => toggleTodo(todo.id)}
                   className={`flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
                     todo.completed
-                      ? "bg-green-500 border-green-500"
+                      ? "bg-sky-500 border-sky-500"
                       : completingIds.has(todo.id)
-                      ? "bg-green-300 border-green-300 scale-125"
-                      : "border-green-300 hover:border-green-500 hover:scale-110"
+                      ? "bg-sky-700 border-sky-700 scale-125"
+                      : "border-slate-600 hover:border-sky-400 hover:scale-110"
                   }`}
                   aria-label={todo.completed ? "未完了に戻す" : "完了にする"}
                 >
@@ -306,7 +306,7 @@ export default function TodoApp() {
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <span className={`text-sm block transition ${todo.completed ? "text-green-300 line-through" : "text-green-900"}`}>
+                  <span className={`text-sm block transition ${todo.completed ? "text-slate-600 line-through" : "text-slate-100"}`}>
                     {todo.text}
                   </span>
                   <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
@@ -319,8 +319,8 @@ export default function TodoApp() {
                     {todo.deadline && (
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                         isOverdue(todo.deadline) && !todo.completed
-                          ? "bg-red-50 text-red-400"
-                          : "bg-green-50 text-green-500"
+                          ? "bg-red-900/30 text-red-400"
+                          : "bg-slate-700 text-slate-400"
                       }`}>
                         {isOverdue(todo.deadline) && !todo.completed ? "⚠ " : ""}
                         {todo.deadline}
@@ -332,7 +332,7 @@ export default function TodoApp() {
                 {/* Delete */}
                 <button
                   onClick={() => removeTodo(todo.id)}
-                  className="opacity-0 group-hover:opacity-100 flex-shrink-0 mt-0.5 w-6 h-6 flex items-center justify-center rounded-lg hover:bg-red-50 text-green-200 hover:text-red-400 transition"
+                  className="opacity-0 group-hover:opacity-100 flex-shrink-0 mt-0.5 w-6 h-6 flex items-center justify-center rounded-lg hover:bg-red-900/20 text-slate-600 hover:text-red-400 transition"
                   aria-label="削除"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -356,7 +356,7 @@ export default function TodoApp() {
                   setRemovingIds(new Set());
                 }, 200);
               }}
-              className="text-xs text-green-300 hover:text-red-400 transition"
+              className="text-xs text-slate-600 hover:text-red-400 transition"
             >
               完了済みをすべて削除
             </button>

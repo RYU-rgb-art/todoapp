@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f0fdf4;
-  --foreground: #14532d;
+  --background: #0f172a;
+  --foreground: #f1f5f9;
 }
 
 body {
@@ -34,9 +34,9 @@ body {
 }
 
 @keyframes completeFlash {
-  0%   { background-color: white; }
-  35%  { background-color: #dcfce7; }
-  100% { background-color: white; }
+  0%   { background-color: #1e293b; }
+  35%  { background-color: #0c4a6e; }
+  100% { background-color: #1e293b; }
 }
 
 .task-enter {
